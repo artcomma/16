@@ -1,6 +1,6 @@
-const CACHE_STATIC = 'artcomma-static-v2';
-const CACHE_API = 'artcomma-api-v2';
-const CACHE_IMG = 'artcomma-img-v2';
+const CACHE_STATIC = 'artcomma-static-v3';
+const CACHE_API = 'artcomma-api-v3';
+const CACHE_IMG = 'artcomma-img-v3';
 
 const STATIC_ASSETS = ['./', './index.html', './brush.png', './manifest.json'];
 
@@ -43,7 +43,7 @@ self.addEventListener('fetch', e=>{
           const res = await fetch(e.request);
           if(res.ok) c.put(e.request, res.clone());
           return res;
-        }catch(){
+        }catch(e){
           return cached || new Response('', {status: 404});
         }
       })
@@ -63,7 +63,7 @@ self.addEventListener('fetch', e=>{
           const res = await fetch(e.request);
           if(res.ok) c.put(e.request, res.clone());
           return res;
-        }catch(){
+        }catch(e){
           return cached || new Response(JSON.stringify({error:'offline'}), {
             headers:{'Content-Type':'application/json'}
           });

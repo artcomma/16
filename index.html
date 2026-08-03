@@ -35,7 +35,7 @@
     --card-shadow:0 2px 8px rgba(0,0,0,.4);
   }
 }
-html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;color:var(--t1);}
+html,body{width:100%;min-height:100%;background:var(--bg3);display:flex;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;color:var(--t1);}
 @media(prefers-color-scheme:dark){
   html,body{color-scheme:dark;}
 }
@@ -269,9 +269,9 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
 .search-wrap{padding:10px 16px 0;flex-shrink:0;}
 .search-inner{display:flex;align-items:center;gap:8px;background:var(--bg2);border-radius:10px;padding:9px 13px;}
 .search-inner svg{width:15px;height:15px;stroke:var(--t3);fill:none;stroke-width:2;stroke-linecap:round;flex-shrink:0;}
-.search-inner input{border:none;background:transparent;font-size:14px;color:var(--t1);outline:none;flex:1;}
+.search-inner input{border:none;background:transparent;font-size:14px;color:var(--t1);outline:none;flex:1;min-width:0;}
 .search-inner input::placeholder{color:var(--t3);}
-.x-btn{color:var(--t3);cursor:pointer;font-size:16px;line-height:1;display:none;}
+.x-btn{color:var(--t3);cursor:pointer;font-size:16px;line-height:1;display:block;}
 .filters{display:flex;gap:8px;padding:10px 16px 12px;overflow-x:auto;scrollbar-width:none;flex-shrink:0;}
 .filters::-webkit-scrollbar{display:none;}
 .fchip{padding:6px 13px;border-radius:20px;font-size:12px;font-weight:500;white-space:nowrap;cursor:pointer;border:.5px solid var(--b1);background:var(--bg);color:var(--t2);transition:all .15s;flex-shrink:0;}
@@ -328,7 +328,7 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
 </head>
 <body>
 <!-- 스플래시 화면 -->
-<div id="scr-splash" style="position:fixed;inset:0;background:linear-gradient(180deg,#534AB7,#3C2882);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+<div id="scr-splash" style="position:fixed;inset:0;background:linear-gradient(180deg,#534AB7,#3C2882);z-index:10000;display:flex;flex-direction:column;align-items:center;justify-content:center;">
   <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
     <div style="display:flex;flex-direction:column;align-items:center;">
       <div style="font-family:Fraunces,serif;font-size:48px;font-weight:700;color:#fff;letter-spacing:3px;line-height:1.2;">ART</div>
@@ -351,7 +351,6 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
      HOME
 ══════════════════════════════════════ -->
 <div class="screen active" id="scr-home">
-  <div class="sb"><span>9:41</span><div class="sb-icons"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg></div></div>
   <div class="home-hd">
     <div><div style="position:relative;display:inline-block;padding-bottom:10px;">
   <h1>Art · Comma</h1>
@@ -374,8 +373,8 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
   </div>
 
   <!-- 전역 음악 플레이어 바 -->
-  <div id="global-music-bar" style="display:flex;align-items:center;gap:10px;margin:0 16px 10px;padding:9px 12px;border-radius:var(--r);background:var(--p50);border:.5px solid var(--p100);">
-    <button id="global-music-btn" onclick="toggleGlobalMusic()" style="flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--p600);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;">
+  <div id="global-music-bar" style="display:flex;align-items:center;gap:8px;margin:0 16px 10px;padding:6px 12px;border-radius:var(--r);background:var(--p50);border:.5px solid var(--p100);">
+    <button id="global-music-btn" onclick="toggleGlobalMusic()" style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--p600);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;">
       <svg id="g-icon-play" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
       <svg id="g-icon-pause" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
     </button>
@@ -383,7 +382,10 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
       <div id="global-music-title" style="font-size:11px;font-weight:600;color:var(--p600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">—</div>
       <div id="global-music-sub" style="font-size:10px;color:var(--t3);margin-top:1px;">—</div>
     </div>
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--p400)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    <div style="display:flex;border-radius:20px;overflow:hidden;border:.5px solid var(--p200);flex-shrink:0;">
+      <button id="g-btn-classic" onclick="switchStream('classic')" style="padding:5px 12px;font-size:10px;font-weight:700;border:none;cursor:pointer;background:var(--p600);color:#fff;letter-spacing:.05em;">CLASSIC</button>
+      <button id="g-btn-jazz" onclick="switchStream('jazz')" style="padding:5px 12px;font-size:10px;font-weight:700;border:none;cursor:pointer;background:var(--bg);color:var(--p600);letter-spacing:.05em;">JAZZ</button>
+    </div>
   </div>
 
   <div style="height:4px;flex-shrink:0;"></div>
@@ -447,7 +449,6 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
      CARD NEWS DETAIL — MET 갤러리 통합
 ══════════════════════════════════════ -->
 <div class="screen" id="scr-detail">
-  <div class="sb"><span>9:41</span><div class="sb-icons"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg></div></div>
 
   <!-- 상단바 -->
   <div class="detail-topbar">
@@ -455,9 +456,9 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
   </div>
 
   <!-- 음악 플레이어 -->
-  <div id="music-player" style="display:block;margin:8px 16px 8px;padding:10px 12px;border-radius:var(--r);border:.5px solid var(--p100);background:linear-gradient(135deg,var(--p50),var(--bg));">
+  <div id="music-player" style="display:block;margin:8px 16px 8px;padding:6px 12px;border-radius:var(--r);border:.5px solid var(--p100);background:linear-gradient(135deg,var(--p50),var(--bg));">
     <div style="display:flex;align-items:center;gap:10px;">
-      <button id="music-toggle-btn" onclick="toggleMusic()" style="flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--p600);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;">
+      <button id="music-toggle-btn" onclick="toggleMusic()" style="flex-shrink:0;width:24px;height:24px;border-radius:50%;background:var(--p600);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;">
         <svg id="music-icon-play" width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
         <svg id="music-icon-pause" width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
       </button>
@@ -465,7 +466,10 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
         <div id="music-title" style="font-size:11px;font-weight:600;color:var(--p600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">—</div>
         <div id="music-sub" style="font-size:10px;color:var(--t3);margin-top:1px;">—</div>
       </div>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--p400)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      <div style="display:flex;border-radius:20px;overflow:hidden;border:.5px solid var(--p200);flex-shrink:0;">
+        <button id="btn-classic" onclick="switchStream('classic')" style="padding:5px 12px;font-size:10px;font-weight:700;border:none;cursor:pointer;background:var(--p600);color:#fff;letter-spacing:.05em;">CLASSIC</button>
+        <button id="btn-jazz" onclick="switchStream('jazz')" style="padding:5px 12px;font-size:10px;font-weight:700;border:none;cursor:pointer;background:var(--bg);color:var(--p600);letter-spacing:.05em;">JAZZ</button>
+      </div>
     </div>
   </div>
 
@@ -532,7 +536,6 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
      ARTIST WORKS (작가 작품 전체보기)
 ══════════════════════════════════════ -->
 <div class="screen" id="scr-artist">
-  <div class="sb"><span>9:41</span><div class="sb-icons"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg></div></div>
   <div style="padding:8px 16px 12px;display:flex;align-items:center;gap:10px;flex-shrink:0;">
     <button onclick="setNav('scr-detail',1)" style="width:32px;height:32px;border-radius:50%;border:.5px solid var(--b1);background:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t2);flex-shrink:0;">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
@@ -557,7 +560,10 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
   <div style="padding:16px 16px 80px;">
     <!-- 헤더 -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-      <div style="font-family:Fraunces,serif;font-size:22px;font-weight:700;color:var(--t1);" data-ti="calTitle">감정 캘린더</div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button class="back-btn" onclick="setNav('scr-home',0)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <div style="font-size:20px;font-weight:700;color:var(--t1);" data-ti="calTitle">감정 캘린더</div>
+      </div>
       <div style="display:flex;gap:8px;">
         <button id="cal-prev" onclick="changeCalMonth(-1)" style="width:32px;height:32px;border-radius:50%;border:0.5px solid var(--b1);background:var(--bg);color:var(--t2);font-size:16px;cursor:pointer;">‹</button>
         <button id="cal-next" onclick="changeCalMonth(1)" style="width:32px;height:32px;border-radius:50%;border:0.5px solid var(--b1);background:var(--bg);color:var(--t2);font-size:16px;cursor:pointer;">›</button>
@@ -608,13 +614,12 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
 </div>
 
 <div class="screen" id="scr-exhibit">
-  <div style="display:flex;align-items:center;padding:8px 16px 4px;flex-shrink:0;">
-    <button class="back-btn" onclick="setNav('scr-home',0)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span style="position:relative;display:inline-block;padding-bottom:14px;"><span data-ti="appName">ART DAILY</span><img src="brush.png" alt="" style="position:absolute;bottom:0;left:-4px;width:calc(100% + 8px);height:auto;pointer-events:none;opacity:0.9;"></span></button>
-  </div>
-  <div class="sb"><span>9:41</span><div class="sb-icons"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg></div></div>
-  <div style="padding:8px 16px 12px;flex-shrink:0;">
-    <h2 style="font-size:20px;font-weight:700;color:var(--t1);" data-ti="exhibitTitle">전시 추천</h2>
-    <p style="font-size:12px;color:var(--t3);margin-top:2px;" data-ti="exhibitSub">나를 위한 맞춤 전시 정보</p>
+  <div style="padding:8px 16px 12px;display:flex;align-items:center;gap:8px;flex-shrink:0;">
+    <button class="back-btn" onclick="setNav('scr-home',0)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div>
+      <h2 style="font-size:20px;font-weight:700;color:var(--t1);" data-ti="exhibitTitle">전시 추천</h2>
+      <p style="font-size:12px;color:var(--t3);margin-top:2px;" data-ti="exhibitSub">나를 위한 맞춤 전시 정보</p>
+    </div>
   </div>
   <div style="border-top:.5px solid var(--b1);margin:0 16px;flex-shrink:0;"></div>
   <div style="flex:1;overflow-y:auto;padding:16px;">
@@ -668,14 +673,13 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
      SAVED (저장된 작품)
 ══════════════════════════════════════ -->
 <div class="screen" id="scr-saved">
-  <div style="display:flex;align-items:center;padding:8px 16px 4px;flex-shrink:0;">
-    <button class="back-btn" onclick="setNav('scr-home',0)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span style="position:relative;display:inline-block;padding-bottom:14px;"><span data-ti="appName">ART DAILY</span><img src="brush.png" alt="" style="position:absolute;bottom:0;left:-4px;width:calc(100% + 8px);height:auto;pointer-events:none;opacity:0.9;"></span></button>
-  </div>
-  <div class="sb"><span>9:41</span><div class="sb-icons"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg></div></div>
   <div style="padding:8px 16px 12px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;">
-    <div>
-      <h2 style="font-size:20px;font-weight:700;color:var(--t1);" data-ti="savedTitle">저장한 작품</h2>
-      <p id="saved-count-label" style="font-size:12px;color:var(--t3);margin-top:2px;">0<span data-ti="pointsUnit">점</span></p>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="back-btn" onclick="setNav('scr-home',0)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div>
+        <h2 style="font-size:20px;font-weight:700;color:var(--t1);" data-ti="savedTitle">저장한 작품</h2>
+        <p id="saved-count-label" style="font-size:12px;color:var(--t3);margin-top:2px;">0<span data-ti="pointsUnit">점</span></p>
+      </div>
     </div>
     <button onclick="clearAllSaved()" id="saved-clear-btn" data-ti="clearAll" style="display:none;font-size:12px;color:var(--t3);border:none;background:none;cursor:pointer;padding:6px 10px;border-radius:8px;border:.5px solid var(--b1);">전체 삭제</button>
   </div>
@@ -718,19 +722,18 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
      EXPLORE (MET 전체 갤러리)
 ══════════════════════════════════════ -->
 <div class="screen" id="scr-explore">
-  <div style="display:flex;align-items:center;padding:8px 16px 4px;flex-shrink:0;">
-    <button class="back-btn" onclick="setNav('scr-home',0)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg><span style="position:relative;display:inline-block;padding-bottom:14px;"><span data-ti="appName">ART DAILY</span><img src="brush.png" alt="" style="position:absolute;bottom:0;left:-4px;width:calc(100% + 8px);height:auto;pointer-events:none;opacity:0.9;"></span></button>
-  </div>
-  <div class="sb"><span>9:41</span><div class="sb-icons"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2"/></svg></div></div>
   <div class="exp-hd">
-    <div><h2 data-ti="metExplore" style="font-size:20px;font-weight:700;color:var(--t1);">검색</h2><p id="exp-sub"></p></div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <button class="back-btn" onclick="setNav('scr-home',0)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div><h2 data-ti="metExplore" style="font-size:20px;font-weight:700;color:var(--t1);">검색</h2><p id="exp-sub"></p></div>
+    </div>
   </div>
 
-  <div style="display:flex;align-items:center;gap:8px;padding:0 16px 10px;">
-    <div class="search-wrap" style="flex:1;margin:0;">
+  <div style="display:flex;align-items:center;gap:10px;padding:0 16px 10px;">
+    <div class="search-wrap" style="flex:1;margin:0;min-width:0;">
       <div class="search-inner">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <input type="text" id="search-input" data-ti-placeholder="searchPlaceholder" placeholder="작가, 작품명 검색…" autocomplete="off">
+        <svg onclick="clearTimeout(searchTimer);searchQ=document.getElementById('search-input').value;initExplore();" style="cursor:pointer;" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         <span class="x-btn" id="x-btn" onclick="clearSearch()">✕</span>
       </div>
     </div>
@@ -934,8 +937,10 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
         <div style="font-size:14px;font-weight:600;color:var(--t1);">🎲 <span data-ti="pickRandom">완전 랜덤</span></div>
       </div>
 
-      <!-- 사조 / 시대 -->
+      <!-- 작품 선택 기준 -->
       <div style="font-size:11px;font-weight:700;color:var(--t3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:10px;" data-ti="pickCriteria">작품 선택 기준</div>
+
+      <!-- 사조 / 시대 -->
       <div style="display:flex;gap:8px;margin-bottom:12px;">
         <div onclick="togglePickSubInline('style')" id="pick-style-btn" style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:var(--r);border:.5px solid var(--b1);background:var(--bg);cursor:pointer;">
           <div>
@@ -957,7 +962,7 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
         <div id="pick-sub-inline-chips" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
       </div>
 
-      <!-- 감정 -->
+      <!-- 주제 -->
       <div style="display:flex;gap:8px;margin-bottom:12px;">
         <div onclick="togglePickInline('theme')" id="pick-theme-btn" style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:var(--r);border:.5px solid var(--b1);background:var(--bg);cursor:pointer;">
           <div>
@@ -965,13 +970,6 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
             <div id="pick-theme-label" style="font-size:11px;color:var(--t3);margin-top:2px;" data-ti="pickNone">선택 안 함</div>
           </div>
           <svg id="pick-theme-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-        </div>
-        <div onclick="togglePickInline('color')" id="pick-color-btn" style="flex:1;display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:var(--r);border:.5px solid var(--b1);background:var(--bg);cursor:pointer;">
-          <div>
-            <div style="font-size:13px;font-weight:600;color:var(--t1);" data-ti="pickColor">색상</div>
-            <div id="pick-color-label" style="font-size:11px;color:var(--t3);margin-top:2px;" data-ti="pickNone">선택 안 함</div>
-          </div>
-          <svg id="pick-color-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--t3)" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </div>
       <!-- 감정/주제/색상 인라인 펼침 -->
@@ -983,7 +981,6 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
       <button onclick="applyPickSettings()" data-ti="applyBtn" style="width:100%;padding:13px;border-radius:var(--r);background:var(--p600);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;">적용하기</button>
     </div>
   </div>
-</div>
 </div>
 
 <!-- 시대 선택 팝업 -->
@@ -1083,6 +1080,7 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
       <div style="font-size:10px;color:var(--t3);text-align:center;margin-top:8px;" data-ti="notifPermission">※ 브라우저 알림 권한이 필요합니다</div>
     </div>
   </div>
+</div>
 
 <!-- BOTTOM NAV -->
 <nav class="bnav">
@@ -1109,7 +1107,7 @@ const I18N = {
     selectFromHomeOrExploreDesc:'홈 화면의 추천 작품을 탭하거나, 탐색에서 마음에 드는 작품을 고르면 해당 작품의 실제 정보로 감상 화면이 구성됩니다.',
     artistEra:'작가 & 시대', artistInfo:'작가 정보', artistInfoDesc:'작품을 선택하면 작가와 시대 배경 정보가 표시됩니다.',
     artworkInfo:'작품 정보', artworkInfoDesc:'재료, 크기 등 작품 상세 정보가 표시됩니다.',
-    artworkExplain:'작품 해설', viewOnMetOfficial:'작품 해설 보기', metLinkNote:'※ 영어로 제공됩니다. 브라우저 번역 기능을 이용해보세요.', viewOnAIC:'AIC 공식 페이지에서 보기', viewOnCMA:'CMA 공식 페이지에서 보기', viewOnMinn:'Artsmia 공식 페이지에서 보기',
+    artworkExplain:'작품 해설', viewOnMetOfficial:'작품 해설 보기', metLinkNote:'※ 영어로 제공됩니다. 브라우저 번역 기능을 이용해보세요.', classicalRadio:'CLASSIC ON AIR', viewOnAIC:'AIC 공식 페이지에서 보기', viewOnCMA:'CMA 공식 페이지에서 보기', viewOnMinn:'Artsmia 공식 페이지에서 보기',
     prev:'이전', next:'다음', artworkDetail:'작품 상세', metExplore:'검색',
     viewOriginalOnMet:'MET 웹사이트에서 원본 보기 →', artworkTimeline:'작품 연보',
     timelinePlaceholder:'작품을 선택하면 연보가 표시됩니다.',
@@ -1138,7 +1136,7 @@ const I18N = {
     selectFromHomeOrExploreDesc:'Tap a featured artwork on Home, or pick one you like in Explore MET — the details will be built from that artwork\'s real data.',
     artistEra:'Artist & Era', artistInfo:'Artist Info', artistInfoDesc:'Select an artwork to see artist and era background.',
     artworkInfo:'Artwork Info', artworkInfoDesc:'Material, size and other details will be shown here.',
-    artworkExplain:'Curatorial Notes', viewOnMetOfficial:'View on MET\'s official page', metLinkNote:'※ This page is in English. Use your browser\'s translation feature.', viewOnAIC:'View on AIC official page', viewOnCMA:'View on CMA official page', viewOnMinn:'View on Artsmia official page',
+    artworkExplain:'Curatorial Notes', viewOnMetOfficial:'View on MET\'s official page', metLinkNote:'※ This page is in English. Use your browser\'s translation feature.', classicalRadio:'CLASSIC ON AIR', viewOnAIC:'View on AIC official page', viewOnCMA:'View on CMA official page', viewOnMinn:'View on Artsmia official page',
     prev:'Prev', next:'Next', artworkDetail:'Details', metExplore:'Explore',
     viewOriginalOnMet:'View original on MET website →', artworkTimeline:'Timeline',
     timelinePlaceholder:'Select an artwork to see its timeline.',
@@ -1167,7 +1165,7 @@ const I18N = {
     selectFromHomeOrExploreDesc:'点击首页的推荐作品，或在探索MET中选择喜欢的作品，详情将基于该作品的真实数据生成。',
     artistEra:'艺术家与时代', artistInfo:'艺术家信息', artistInfoDesc:'选择作品后将显示艺术家与时代背景信息。',
     artworkInfo:'作品信息', artworkInfoDesc:'将显示材质、尺寸等作品详细信息。',
-    artworkExplain:'作品解说', viewOnMetOfficial:'查看作品解说', metLinkNote:'※ 页面为英文，请使用浏览器翻译功能。', viewOnAIC:'在AIC官网查看', viewOnCMA:'在CMA官网查看', viewOnMinn:'在Artsmia官网查看',
+    artworkExplain:'作品解说', viewOnMetOfficial:'查看作品解说', metLinkNote:'※ 页面为英文，请使用浏览器翻译功能。', classicalRadio:'CLASSIC ON AIR', viewOnAIC:'在AIC官网查看', viewOnCMA:'在CMA官网查看', viewOnMinn:'在Artsmia官网查看',
     prev:'上一页', next:'下一页', artworkDetail:'作品详情', metExplore:'Explore',
     viewOriginalOnMet:'在MET官网查看原作 →', artworkTimeline:'作品年表',
     timelinePlaceholder:'选择作品后将显示年表。',
@@ -1196,7 +1194,7 @@ const I18N = {
     selectFromHomeOrExploreDesc:'ホーム画面のおすすめ作品をタップするか、MET探索で気になる作品を選ぶと、その作品の実際の情報で詳細情報が作成されます。',
     artistEra:'作家と時代', artistInfo:'作家情報', artistInfoDesc:'作品を選択すると作家と時代背景の情報が表示されます。',
     artworkInfo:'作品情報', artworkInfoDesc:'素材やサイズなどの詳細情報が表示されます。',
-    artworkExplain:'作品解説', viewOnMetOfficial:'作品解説を見る', metLinkNote:'※ 英語のページです。ブラウザの翻訳機能をご利用ください。', viewOnAIC:'AIC公式ページで見る', viewOnCMA:'CMA公式ページで見る', viewOnMinn:'Artsmia公式ページで見る',
+    artworkExplain:'作品解説', viewOnMetOfficial:'作品解説を見る', metLinkNote:'※ 英語のページです。ブラウザの翻訳機能をご利用ください。', classicalRadio:'CLASSIC ON AIR', viewOnAIC:'AIC公式ページで見る', viewOnCMA:'CMA公式ページで見る', viewOnMinn:'Artsmia公式ページで見る',
     prev:'前へ', next:'次へ', artworkDetail:'作品詳細', metExplore:'Explore',
     viewOriginalOnMet:'MET公式サイトで原作を見る →', artworkTimeline:'作品年表',
     timelinePlaceholder:'作品を選択すると年表が表示されます。',
@@ -1333,7 +1331,7 @@ function normalizeCMA(obj){
 async function aicFetch(q=''){
   try{
     const url = q
-      ? `${AIC_API}/artworks/search?q=${encodeURIComponent(q)}&limit=20&fields=id,title,artist_display,date_display,department_title,medium_display,image_id,api_link,style_title,classification_title,place_of_origin,description,artwork_type_title`
+      ? `${AIC_API}/artworks/search?q=${encodeURIComponent(q)}&limit=40&fields=id,title,artist_display,date_display,department_title,medium_display,image_id,api_link,style_title,classification_title,place_of_origin,description,artwork_type_title`
       : `${AIC_API}/artworks?limit=20&fields=id,title,artist_display,date_display,department_title,medium_display,image_id,api_link,style_title,classification_title,place_of_origin,artwork_type_title&is_public_domain=true&has_not_been_viewed_much=false`;
     const r = await fetch(url);
     const d = await r.json();
@@ -1341,6 +1339,10 @@ async function aicFetch(q=''){
   }catch{return [];}
 }
 
+function slugifyAIC(title){
+  const s = (title||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  return s || 'artwork';
+}
 function normalizeAIC(obj){
   if(obj.artwork_type_title && !['Painting','Drawing and Watercolor','Drawing'].includes(obj.artwork_type_title)) return null;
   const imgBase = 'https://www.artic.edu/iiif/2';
@@ -1354,7 +1356,7 @@ function normalizeAIC(obj){
     department: obj.department_title||'',
     primaryImageSmall: imgSmall,
     primaryImage: imgFull,
-    objectURL: `https://www.artic.edu/artworks/${obj.id}`,
+    objectURL: `https://www.artic.edu/artworks/${obj.id}/${slugifyAIC(obj.title)}`,
     medium: obj.medium_display||'',
     style: obj.style_title||'',
     classification: obj.classification_title||'',
@@ -1418,7 +1420,7 @@ function normalizeWikimedia(obj){
     department: '위키미디어 공용',
     primaryImageSmall: info?.thumburl || info?.url || '',
     primaryImage: info?.url || '',
-    objectURL: `https://commons.wikimedia.org/wiki/${encodeURIComponent(obj.title||'')}`,
+    objectURL: `https://commons.wikimedia.org/w/index.php?search=${encodeURIComponent(obj.title||'')}&ns6=1`,
     culture: '',
     medium: '',
     source: 'wiki',
@@ -1731,10 +1733,10 @@ function getPICK_ETC_DATA(type){
     ja: {'평온':'😌 穏やか','설렘':'🥰 ときめき','활력':'😆 活力','행복':'😊 幸せ','감사':'🙏 感謝','슬픔':'😢 悲しみ','불안':'😰 不安','화남':'😤 怒り','지침':'😩 疲れ','우울':'🥲 憂鬱'},
   };
   const themeLabels = {
-    ko: [{label:'🌄 풍경',val:'landscape'},{label:'🧑 초상',val:'portrait'},{label:'🍎 정물',val:'still life'},{label:'⚡ 신화·역사',val:'mythology'},{label:'🌸 꽃·식물',val:'flowers'},{label:'🌊 바다',val:'seascape'},{label:'🦁 동물',val:'animal'},{label:'✝️ 종교화',val:'religious'},{label:'💕 사랑·낭만',val:'love'},{label:'🌙 밤·어둠',val:'night'},{label:'🏙 도시',val:'city'},{label:'🏯 동양화',val:'asian art chinese japanese korean painting'}],
-    en: [{label:'🌄 Landscape',val:'landscape'},{label:'🧑 Portrait',val:'portrait'},{label:'🍎 Still Life',val:'still life'},{label:'⚡ Myth·History',val:'mythology'},{label:'🌸 Flowers',val:'flowers'},{label:'🌊 Sea',val:'seascape'},{label:'🦁 Animals',val:'animal'},{label:'✝️ Religious',val:'religious'},{label:'💕 Love·Romance',val:'love'},{label:'🌙 Night·Dark',val:'night'},{label:'🏙 City',val:'city'},{label:'🏯 Asian Art',val:'asian art chinese japanese korean painting'}],
-    zh: [{label:'🌄 风景',val:'landscape'},{label:'🧑 肖像',val:'portrait'},{label:'🍎 静物',val:'still life'},{label:'⚡ 神话·历史',val:'mythology'},{label:'🌸 花卉',val:'flowers'},{label:'🌊 海洋',val:'seascape'},{label:'🦁 动物',val:'animal'},{label:'✝️ 宗教画',val:'religious'},{label:'💕 爱情·浪漫',val:'love'},{label:'🌙 夜晚·黑暗',val:'night'},{label:'🏙 城市',val:'city'},{label:'🏯 东方绘画',val:'asian art chinese japanese korean painting'}],
-    ja: [{label:'🌄 風景',val:'landscape'},{label:'🧑 肖像',val:'portrait'},{label:'🍎 静物',val:'still life'},{label:'⚡ 神話·歴史',val:'mythology'},{label:'🌸 花·植物',val:'flowers'},{label:'🌊 海',val:'seascape'},{label:'🦁 動物',val:'animal'},{label:'✝️ 宗教画',val:'religious'},{label:'💕 愛·ロマンス',val:'love'},{label:'🌙 夜·闇',val:'night'},{label:'🏙 都市',val:'city'},{label:'🏯 東洋絵画',val:'asian art chinese japanese korean painting'}],
+    ko: [{label:'🌄 풍경',val:'landscape'},{label:'🧑 초상',val:'portrait'},{label:'🍎 정물',val:'still life'},{label:'⚡ 신화·역사',val:'mythology'},{label:'🌸 꽃·식물',val:'flowers'},{label:'🌊 바다',val:'sea'},{label:'🦁 동물',val:'animal'},{label:'✝️ 종교화',val:'religious'},{label:'💕 사랑·낭만',val:'love'},{label:'🌙 밤·어둠',val:'night'},{label:'🏙 도시',val:'city'},{label:'🏯 중국화',val:'chinese painting'},{label:'🎎 일본화',val:'japanese painting'},{label:'🌸 한국화',val:'korean painting'}],
+    en: [{label:'🌄 Landscape',val:'landscape'},{label:'🧑 Portrait',val:'portrait'},{label:'🍎 Still Life',val:'still life'},{label:'⚡ Myth·History',val:'mythology'},{label:'🌸 Flowers',val:'flowers'},{label:'🌊 Sea',val:'sea'},{label:'🦁 Animals',val:'animal'},{label:'✝️ Religious',val:'religious'},{label:'💕 Love·Romance',val:'love'},{label:'🌙 Night·Dark',val:'night'},{label:'🏙 City',val:'city'},{label:'🏯 Chinese Art',val:'chinese painting'},{label:'🎎 Japanese Art',val:'japanese painting'},{label:'🌸 Korean Art',val:'korean painting'}],
+    zh: [{label:'🌄 风景',val:'landscape'},{label:'🧑 肖像',val:'portrait'},{label:'🍎 静物',val:'still life'},{label:'⚡ 神话·历史',val:'mythology'},{label:'🌸 花卉',val:'flowers'},{label:'🌊 海洋',val:'sea'},{label:'🦁 动物',val:'animal'},{label:'✝️ 宗教画',val:'religious'},{label:'💕 爱情·浪漫',val:'love'},{label:'🌙 夜晚·黑暗',val:'night'},{label:'🏙 城市',val:'city'},{label:'🏯 中国画',val:'chinese painting'},{label:'🎎 日本画',val:'japanese painting'},{label:'🌸 韩国画',val:'korean painting'}],
+    ja: [{label:'🌄 風景',val:'landscape'},{label:'🧑 肖像',val:'portrait'},{label:'🍎 静物',val:'still life'},{label:'⚡ 神話·歴史',val:'mythology'},{label:'🌸 花·植物',val:'flowers'},{label:'🌊 海',val:'sea'},{label:'🦁 動物',val:'animal'},{label:'✝️ 宗教画',val:'religious'},{label:'💕 愛·ロマンス',val:'love'},{label:'🌙 夜·闇',val:'night'},{label:'🏙 都市',val:'city'},{label:'🏯 中国絵画',val:'chinese painting'},{label:'🎎 日本絵画',val:'japanese painting'},{label:'🌸 韓国絵画',val:'korean painting'}],
   };
   const colorLabels = {
     ko: [{label:'빨강',val:'red,crimson,rose',dot:'#e74c3c'},{label:'주황',val:'orange,amber,autumn',dot:'#e67e22'},{label:'노랑',val:'yellow,gold,sunlight',dot:'#f1c40f'},{label:'초록',val:'green,forest,nature',dot:'#27ae60'},{label:'파랑',val:'blue,ocean,sky',dot:'#2980b9'},{label:'보라',val:'purple,violet,lavender',dot:'#8e44ad'},{label:'흰색',val:'white,snow,light',dot:'#bdc3c7'},{label:'검정',val:'black,dark,night',dot:'#2c3e50'},{label:'갈색',val:'brown,earth,warm',dot:'#8B5E3C'},{label:'분홍',val:'pink,blossom,soft',dot:'#e91e8c'}],
@@ -1831,23 +1833,45 @@ function selectPickEtcInline(val, label){
   } else if(type === 'theme'){
     if(selectedThemes.includes(val)){
       selectedThemes = [];
+      pickSettings.themes = [];
+      pickSettings._themeKeywordsFromAI = [];
+      const dict = I18N[currentLang]||I18N.ko;
+      document.getElementById('pick-theme-label').textContent = dict.pickNone||'선택 안 함';
     } else {
       selectedThemes = [val];
+      pickSettings.themes = selectedThemes;
+      pickSettings._themeKeywordsFromAI = [];
+      const dict = I18N[currentLang]||I18N.ko;
+      const themeLabel = label.replace(/^[\uD800-\uDFFF\u0000-\u007F]{1,2}\s*/,'').trim()||label;
+      document.getElementById('pick-theme-label').textContent = themeLabel + ' ⏳';
+      // Claude API로 키워드 받은 후 바로 pickSettings에 저장
+      getThemeKeywordsFromClaude(themeLabel, val).then(keywords=>{
+        if(keywords && keywords.length > 0){
+          pickSettings._themeKeywordsFromAI = keywords;
+        }
+        document.getElementById('pick-theme-label').textContent = themeLabel;
+      });
     }
-    pickSettings.themes = selectedThemes;
-    const dict = I18N[currentLang]||I18N.ko;
-    const count = selectedThemes.length;
-    document.getElementById('pick-theme-label').textContent = count ? label.replace(/^[\uD800-\uDFFF\u0000-\u007F]{1,2}\s*/,'').trim()||label : (dict.pickNone||'선택 안 함');
   } else if(type === 'color'){
     if(selectedColorKeywords.includes(val)){
       selectedColorKeywords = [];
+      pickSettings.colors = [];
+      pickSettings._colorKeywordsFromAI = [];
+      const dict2 = I18N[currentLang]||I18N.ko;
+      document.getElementById('pick-color-label').textContent = dict2.pickNone||'선택 안 함';
     } else {
       selectedColorKeywords = [val];
+      pickSettings.colors = selectedColorKeywords;
+      const dict2 = I18N[currentLang]||I18N.ko;
+      const colorLabel = label.replace(/^[\uD800-\uDFFF\u0000-\u007F]{1,2}\s*/,'').trim()||label;
+      document.getElementById('pick-color-label').textContent = colorLabel;
+      // Claude API로 색상 관련 키워드 비동기 요청
+      getColorKeywordsFromClaude(colorLabel, val).then(keywords=>{
+        if(keywords && keywords.length > 0){
+          pickSettings._colorKeywordsFromAI = keywords;
+        }
+      });
     }
-    pickSettings.colors = selectedColorKeywords;
-    const dict2 = I18N[currentLang]||I18N.ko;
-    const count = selectedColorKeywords.length;
-    document.getElementById('pick-color-label').textContent = count ? label.replace(/^[\uD800-\uDFFF\u0000-\u007F]{1,2}\s*/,'').trim()||label : (dict2.pickNone||'선택 안 함');
   }
 
   pickSettings.random = false;
@@ -2572,7 +2596,9 @@ async function loadHomeWithSettings(){
   // 주제 선택
   else if(selectedThemes.length > 0 || (pickSettings.themes && pickSettings.themes.length > 0)){
     const themes = selectedThemes.length > 0 ? selectedThemes : pickSettings.themes;
-    const keyword = themes[Math.floor(Math.random()*themes.length)];
+    const themeVal = themes[0];
+    const keywords = THEME_KEYWORDS[themeVal] || [themeVal];
+    const keyword = keywords[Math.floor(Math.random() * keywords.length)];
     const results = await Promise.allSettled([
       metFetch(`${API}/search?q=${encodeURIComponent(keyword)}&hasImages=true`).then(async d=>{
         if(!d?.objectIDs) return [];
@@ -2590,7 +2616,11 @@ async function loadHomeWithSettings(){
   // 색상 선택
   else if(selectedColorKeywords.length > 0 || (pickSettings.colors && pickSettings.colors.length > 0)){
     const colors = selectedColorKeywords.length > 0 ? selectedColorKeywords : pickSettings.colors;
-    const keyword = colors[Math.floor(Math.random()*colors.length)];
+    // AI 키워드가 있으면 우선 사용, 없으면 기본 키워드 첫 번째
+    const aiKeywords = pickSettings._colorKeywordsFromAI || [];
+    const keyword = aiKeywords.length > 0
+      ? aiKeywords[Math.floor(Math.random() * aiKeywords.length)]
+      : colors[0].split(',')[0].trim();
     const results = await Promise.allSettled([
       metFetch(`${API}/search?q=${encodeURIComponent(keyword)}&hasImages=true`).then(async d=>{
         if(!d?.objectIDs) return [];
@@ -2662,6 +2692,23 @@ async function loadHomeWithSettings(){
         return date >= (eraYears.dateBegin - 50) && date <= (eraYears.dateEnd + 50);
       });
     }
+    objs = objs.filter(o=>o&&(o.primaryImageSmall||o.primaryImage)).sort(()=>Math.random()-.5).slice(0,9);
+  }
+  // 나라 · 문화권 선택
+  else if(pickSettings.country){
+    const countryKeyword = pickSettings.country;
+    const results = await Promise.allSettled([
+      metFetch(`${API}/search?q=${encodeURIComponent(countryKeyword+' painting')}&hasImages=true`).then(async d=>{
+        if(!d?.objectIDs) return [];
+        const ids = d.objectIDs.sort(()=>Math.random()-.5).slice(0,10);
+        const arts = await Promise.allSettled(ids.map(id=>metFetch(`${API}/objects/${id}`)));
+        return arts.filter(r=>r.status==='fulfilled'&&r.value&&(r.value.primaryImageSmall||r.value.primaryImage)&&isPainting(r.value)).map(r=>r.value);
+      }),
+      cmaFetch(`&q=${encodeURIComponent(countryKeyword)}`).then(os=>os.map(o=>normalizeCMA(o)).filter(o=>o&&o.primaryImageSmall)).catch(()=>[]),
+      aicFetch(countryKeyword).then(os=>os.map(o=>normalizeAIC(o)).filter(o=>o&&o.primaryImageSmall)).catch(()=>[]),
+      minneapolisFetch(countryKeyword).then(os=>os.map(o=>normalizeMinneapolis(o)).filter(o=>o&&o.primaryImageSmall)).catch(()=>[]),
+    ]);
+    results.forEach(r=>{ if(r.status==='fulfilled'&&Array.isArray(r.value)) objs.push(...r.value); });
     objs = objs.filter(o=>o&&(o.primaryImageSmall||o.primaryImage)).sort(()=>Math.random()-.5).slice(0,9);
   }
   // MET 부서/시대 기반
@@ -2860,36 +2907,12 @@ async function selectArt(obj){
 /* ── 작품 시대 → 퍼블릭 도메인 클래식 음원 매핑 (Wikimedia Commons) ──
    모든 음원은 작곡 저작권이 만료된 클래식 명곡의 연주 녹음이며,
    Wikimedia Commons에 CC 라이선스로 공개된 파일입니다. */
+const CLASSICAL_STREAM = 'https://wrti-live.streamguys1.com/classical-mp3';
+const JAZZ_STREAM = 'https://wrti-live.streamguys1.com/jazz-mp3';
+let currentStream = 'classic';
 const CLASSICAL_TRACKS={
-  medieval:[
-    {url:'https://cdn.pixabay.com/audio/2022/01/18/audio_d0c6ff1c97.mp3',title:'Canon in D',composer:'Pachelbel'},
-    {url:'https://cdn.pixabay.com/audio/2022/03/15/audio_1ef166b2f3.mp3',title:'Air on the G String',composer:'J.S. Bach'},
-  ],
-  renaissance:[
-    {url:'https://cdn.pixabay.com/audio/2022/01/18/audio_d0c6ff1c97.mp3',title:'Canon in D',composer:'Pachelbel'},
-    {url:'https://cdn.pixabay.com/audio/2022/03/15/audio_1ef166b2f3.mp3',title:'Air on the G String',composer:'J.S. Bach'},
-  ],
-  baroque:[
-    {url:'https://cdn.pixabay.com/audio/2022/01/18/audio_d0c6ff1c97.mp3',title:'Canon in D',composer:'Pachelbel'},
-    {url:'https://cdn.pixabay.com/audio/2022/03/15/audio_1ef166b2f3.mp3',title:'Air on the G String',composer:'J.S. Bach'},
-    {url:'https://cdn.pixabay.com/audio/2022/05/27/audio_1808fbf07a.mp3',title:'Spring — Vivaldi',composer:'Vivaldi'},
-  ],
-  classical:[
-    {url:'https://cdn.pixabay.com/audio/2022/08/02/audio_884fe92c21.mp3',title:'Eine kleine Nachtmusik',composer:'Mozart'},
-    {url:'https://cdn.pixabay.com/audio/2022/10/25/audio_946b21b9de.mp3',title:'Für Elise',composer:'Beethoven'},
-  ],
-  romantic:[
-    {url:'https://cdn.pixabay.com/audio/2022/10/25/audio_946b21b9de.mp3',title:'Für Elise',composer:'Beethoven'},
-    {url:'https://cdn.pixabay.com/audio/2021/11/13/audio_914e4a01a3.mp3',title:'Moonlight Sonata',composer:'Beethoven'},
-    {url:'https://cdn.pixabay.com/audio/2022/02/07/audio_d5f6408f39.mp3',title:'Nocturne Op.9 No.2',composer:'Chopin'},
-  ],
-  impressionism:[
-    {url:'https://cdn.pixabay.com/audio/2022/03/10/audio_c8c8a73467.mp3',title:'Clair de Lune',composer:'Debussy'},
-    {url:'https://cdn.pixabay.com/audio/2022/01/27/audio_647964b258.mp3',title:'Gymnopédie No.1',composer:'Satie'},
-  ],
-  modern:[
-    {url:'https://cdn.pixabay.com/audio/2022/03/10/audio_c8c8a73467.mp3',title:'Clair de Lune',composer:'Debussy'},
-    {url:'https://cdn.pixabay.com/audio/2022/01/27/audio_647964b258.mp3',title:'Gymnopédie No.1',composer:'Satie'},
+  all:[
+    {url:CLASSICAL_STREAM, title:'♩ ♪ ♫ ♬', composer:''},
   ],
 };
 
@@ -2899,6 +2922,73 @@ function getArtworkYear(obj){
   const match = String(obj.objectBeginDate || dateStr).match(/-?\d{3,4}/);
   return match ? parseInt(match[0]) : null;
 }
+const THEME_KEYWORDS = {
+  'landscape':     ['landscape painting','mountain painting','river painting','forest painting','valley painting','pastoral','meadow painting','countryside','lake painting','sunset painting'],
+  'portrait':      ['portrait painting','figure painting','self-portrait','woman portrait','man portrait','child portrait','gentleman','lady portrait','bust','face painting'],
+  'still life':    ['still life painting','fruit painting','flower vase painting','bowl painting','kitchen painting','fruit bowl','wine painting','bread painting','vegetables painting','table painting'],
+  'mythology':     ['mythology painting','Venus painting','Apollo painting','Diana painting','Hercules painting','Zeus painting','battle painting','history painting','allegory painting','Bacchus painting'],
+  'flowers':       ['flowers painting','bouquet painting','roses painting','tulips painting','garden painting','blossoms painting','lilies painting','sunflowers painting','chrysanthemums','iris painting'],
+  'sea':           ['sea painting','ocean painting','ship painting','harbor painting','sailing painting','coast painting','waves painting','beach painting','fishermen painting','marine painting'],
+  'animal':        ['horse painting','dog painting','bird painting','lion painting','deer painting','cat painting','rabbit painting','eagle painting','owl painting','sheep painting'],
+  'religious':     ['Madonna painting','Christ painting','saint painting','angel painting','crucifixion painting','nativity painting','biblical painting','Virgin Mary','apostle painting','prayer painting'],
+  'love':          ['love painting','romance painting','couple painting','embrace painting','kiss painting','wedding painting','Venus painting','cherub painting','courtship','lovers painting'],
+  'night':         ['night painting','moonlight painting','candle painting','nocturne painting','stars painting','lantern painting','dusk painting','twilight painting','darkness painting','shadow painting'],
+  'city':          ['city painting','street painting','market painting','square painting','bridge painting','crowd painting','urban painting','buildings painting','harbor city','street scene'],
+  'chinese painting': ['Tang Yin','Shen Zhou','Dong Qichang','Gu Kaizhi','Wu Zhen','Huang Gongwang','Qi Baishi','Zhang Daqian','Xu Beihong','Wu Guanzhong','Fan Kuan','Li Cheng','Guo Xi'],
+  'japanese painting': ['Hokusai','Hiroshige','Utagawa','Sesshu','Katsushika','Utamaro','Sharaku','Harunobu','Kuniyoshi','Yoshitoshi','Jakuchu','Korin','Sotatsu'],
+  'korean painting': ['Kim Hongdo','Shin Saimdang','Jeong Seon','Kim Deuksin','Chae Yong-sin','Yi Am','Gang Hui-an','An Gyeon','Choe Buk','Kim Myeongguk','Yun Duseo','Jang Seung-eop','Kim Jeong-hui','Heo Ryeon','Yi In-mun','Byeon Sang-byeok','Lee Jung-seop','Park Soo-keun','Kim Whanki','Na Hyeseok','Lee Ungno','Chun Kyung-ja'],
+};
+
+async function getThemeKeywordsFromClaude(themeLabel, themeVal){
+  try{
+    const prompt = `You are an art expert. Given the theme "${themeLabel}" (search value: "${themeVal}"), suggest 5 specific English keywords to search for paintings in museum collections (like MET, AIC). Focus on specific subjects within this theme. For example, if theme is "animals", suggest specific animals like "horse", "bird", "dog", "lion", "deer". Return ONLY a JSON array of 5 strings, nothing else.`;
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:200,
+        messages:[{role:'user', content:prompt}]
+      })
+    });
+    const data = await res.json();
+    const text = data?.content?.[0]?.text||'';
+    const clean = text.replace(/```json|```/g,'').trim();
+    const keywords = JSON.parse(clean);
+    if(Array.isArray(keywords)) return keywords;
+  } catch(e){}
+  return [];
+}
+
+async function getColorKeywordsFromClaude(colorLabel, colorVal){
+  try{
+    const prompt = `You are an art expert. Given the color "${colorLabel}", suggest 5 specific English keywords to search for paintings in museum collections (like MET, AIC) that prominently feature this color. Focus on art-specific terms like subjects, styles, or moods associated with this color. Return ONLY a JSON array of 5 strings, nothing else. Example: ["roses", "sunset", "passion", "vermillion", "crimson roses"]`;
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'anthropic-version':'2023-06-01',
+        'anthropic-dangerous-direct-browser-access':'true'
+      },
+      body:JSON.stringify({
+        model:'claude-sonnet-4-6',
+        max_tokens:200,
+        messages:[{role:'user', content:prompt}]
+      })
+    });
+    const data = await res.json();
+    const text = data?.content?.[0]?.text||'';
+    const clean = text.replace(/```json|```/g,'').trim();
+    const keywords = JSON.parse(clean);
+    if(Array.isArray(keywords)) return keywords;
+  } catch(e){}
+  return [];
+}
+
 function getEraKey(obj){
   const year = getArtworkYear(obj);
   const dept = obj.department || '';
@@ -3057,21 +3147,51 @@ function syncMusicUI(playing){
 }
 
 function syncMusicInfo(track, eraKey){
-  const lang = currentLang || 'ko';
-  const sub = `${getEraLabel(eraKey, lang)} · Internet Archive CC0`;
+  const sub = (I18N[currentLang]||I18N.ko).classicalRadio||'Classical Radio';
   // 상세화면
   const mt = document.getElementById('music-title');
   const ms = document.getElementById('music-sub');
-  if(mt) mt.textContent = `${track.composer} — ${track.title}`;
-  if(ms) ms.textContent = sub;
+  if(mt) mt.textContent = sub;
+  if(ms) ms.textContent = '';
   // 홈 전역 바
   const gt = document.getElementById('global-music-title');
   const gs = document.getElementById('global-music-sub');
-  if(gt) gt.textContent = `${track.composer} — ${track.title}`;
-  if(gs) gs.textContent = sub;
+  if(gt) gt.textContent = sub;
+  if(gs) gs.textContent = '';
   // 홈 바 표시
   const bar = document.getElementById('global-music-bar');
   if(bar) bar.style.display = 'flex';
+}
+
+let _nowPlayingTimer = null;
+async function fetchNowPlaying(){
+  try{
+    const r = await fetch('https://api.composer.nprstations.org/v1/widget/53c7dbe1e1c8b9c77b4b9b6e/now?format=json');
+    const d = await r.json();
+    const song = d?.currentSong || d?.data?.currentSong || d?.song || d?.track;
+    if(song){
+      const title = song.trackName || song.title || song.name || '';
+      const composer = song.artistName || song.artist || song.composer || '';
+      const text = composer && title ? `${composer} — ${title}` : (title||composer||(I18N[currentLang]||I18N.ko).classicalRadio||'Classical Radio');
+      ['music-title','global-music-title'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el) el.textContent = text;
+      });
+      ['music-sub','global-music-sub'].forEach(id=>{
+        const el = document.getElementById(id);
+        if(el) el.textContent = '';
+      });
+    }
+  } catch(e){}
+}
+
+function startNowPlayingPoller(){
+  fetchNowPlaying();
+  if(_nowPlayingTimer) clearInterval(_nowPlayingTimer);
+  _nowPlayingTimer = setInterval(fetchNowPlaying, 30000);
+}
+function stopNowPlayingPoller(){
+  if(_nowPlayingTimer){ clearInterval(_nowPlayingTimer); _nowPlayingTimer=null; }
 }
 
 function playTrack(track, eraKey, idx){
@@ -3082,25 +3202,20 @@ function playTrack(track, eraKey, idx){
   GLOBAL_AUDIO.play().then(()=>{
     syncMusicUI(true);
     syncMusicInfo(track, eraKey);
+    startNowPlayingPoller();
   }).catch(()=>syncMusicUI(false));
 }
 
 function updateMusicButton(obj){
   const player = document.getElementById('music-player');
   if(!player) return;
-  const allTracks = Object.values(CLASSICAL_TRACKS).flat();
-  const tracks = allTracks;
-  const eraKey = 'all';
+  const track = CLASSICAL_TRACKS.all[0];
   if(!currentTrack){
-    GLOBAL_AUDIO.pause();
-    syncMusicUI(false);
-    const idx = Math.floor(Math.random() * tracks.length);
-    const track = tracks[idx];
     currentTrack = track;
-    currentEraKey = eraKey;
-    currentTrackIdx = idx;
+    currentEraKey = 'all';
+    currentTrackIdx = 0;
     GLOBAL_AUDIO.src = track.url;
-    syncMusicInfo(track, eraKey);
+    syncMusicInfo(track, 'all');
   }
   player.style.display = 'block';
   const bar = document.getElementById('global-music-bar');
@@ -3114,11 +3229,42 @@ function toggleMusic(){
   } else {
     GLOBAL_AUDIO.pause();
     syncMusicUI(false);
+    stopNowPlayingPoller();
   }
 }
 
 function toggleGlobalMusic(){
   toggleMusic();
+}
+
+function switchStream(type){
+  currentStream = type;
+  const isPlaying = !GLOBAL_AUDIO.paused;
+  // 모든 CLASSIC/JAZZ 버튼 업데이트
+  ['btn-classic','g-btn-classic'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.style.background = type==='classic' ? 'var(--p600)' : 'var(--bg)';
+    el.style.color = type==='classic' ? '#fff' : 'var(--p600)';
+  });
+  ['btn-jazz','g-btn-jazz'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.style.background = type==='jazz' ? 'var(--p600)' : 'var(--bg)';
+    el.style.color = type==='jazz' ? '#fff' : 'var(--p600)';
+  });
+  const url = type === 'jazz' ? JAZZ_STREAM : CLASSICAL_STREAM;
+  GLOBAL_AUDIO.src = url;
+  currentTrack = {url, title: type==='jazz' ? 'JAZZ ON AIR' : 'MUSIC ON AIR', composer:''};
+  const dict = I18N[currentLang]||I18N.ko;
+  const label = type==='jazz' ? 'JAZZ ON AIR' : (dict.classicalRadio||'MUSIC ON AIR');
+  ['music-title','global-music-title'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.textContent = label;
+  });
+  if(isPlaying){
+    GLOBAL_AUDIO.play().then(()=>{ syncMusicUI(true); startNowPlayingPoller(); }).catch(()=>syncMusicUI(false));
+  }
 }
 
 function resetMusicIcon(){ syncMusicUI(false); }
@@ -3802,7 +3948,9 @@ async function fetchIDs(){
   const d=await metFetch(url);return d?.objectIDs||[];
 }
 
+let _exploreGen = 0;
 async function initExplore(){
+  const myGen = ++_exploreGen;
   document.getElementById('met-grid').innerHTML='';
   document.getElementById('empty-state').classList.remove('show');
   document.getElementById('spinner').style.display='block';
@@ -3825,26 +3973,40 @@ async function initExplore(){
   const [metRes, cmaRes, aicRes, minnRes] = await Promise.allSettled([
     metFetch(`${API}/search?q=${encodeURIComponent(translatedQ)}&hasImages=true`).then(async d=>{
       if(!d?.objectIDs) return [];
-      const ids = d.objectIDs.slice(0,30).sort(()=>Math.random()-.5).slice(0,15);
+      const ids = d.objectIDs.slice(0,15);
       const arts = await Promise.allSettled(ids.map(id=>metFetch(`${API}/objects/${id}`)));
       return arts.filter(r=>r.status==='fulfilled'&&r.value&&(r.value.primaryImageSmall||r.value.primaryImage)&&isPainting(r.value)).map(r=>r.value);
     }),
     cmaFetch(`&q=${encodeURIComponent(translatedQ)}`).then(objs=>objs.map(o=>normalizeCMA(o)).filter(o=>o.primaryImageSmall)).catch(()=>[]),
-    aicFetch(translatedQ).then(objs=>objs.map(o=>normalizeAIC(o)).filter(o=>o.primaryImageSmall)).catch(()=>[]),
+    (async()=>{
+      let r = await aicFetch(`title:"${translatedQ}"`).catch(()=>[]);
+      if(!r || r.length===0) r = await aicFetch(`"${translatedQ}"`).catch(()=>[]);
+      if(!r || r.length===0) r = await aicFetch(translatedQ).catch(()=>[]);
+      return r.map(o=>normalizeAIC(o)).filter(o=>o&&o.primaryImageSmall);
+    })(),
     minneapolisFetch(translatedQ).then(objs=>objs.map(o=>normalizeMinneapolis(o)).filter(o=>o.primaryImageSmall)).catch(()=>[]),
   ]);
 
+  // 이 검색이 실행되는 동안 더 최신 검색이 시작됐다면, 결과가 늦게 와도 화면을 덮어쓰지 않음
+  if(myGen !== _exploreGen) return;
+
   const grid = document.getElementById('met-grid');
   let total = 0;
+  // 4개 기관 결과를 모은 뒤, 제목에 검색어가 그대로 포함된 작품을 앞으로 재정렬
+  let combined = [];
   [metRes,cmaRes,aicRes,minnRes].forEach(r=>{
     if(r.status==='fulfilled'&&Array.isArray(r.value)){
       r.value.forEach(obj=>{
         if(!obj||(!(obj.primaryImageSmall||obj.primaryImage))) return;
-        grid.appendChild(makeMETCard(obj));
-        total++;
+        combined.push(obj);
       });
     }
   });
+  const qLower = translatedQ.trim().toLowerCase();
+  const titleMatches = combined.filter(obj=>qLower && (obj.title||'').toLowerCase().includes(qLower));
+  // 제목이 검색어를 포함하는 작품이 하나라도 있으면 그것만 보여주고, 없으면(작가명 검색 등) 기존처럼 전체 표시
+  if(titleMatches.length > 0) combined = titleMatches;
+  combined.forEach(obj=>{ grid.appendChild(makeMETCard(obj)); total++; });
 
   if(!total) document.getElementById('empty-state').classList.add('show');
   document.getElementById('spinner').style.display='none';
@@ -3914,10 +4076,10 @@ function toggleFavArtist(){
   initExplore();
 }
 function toggleHL(){hlOnly=!hlOnly;document.getElementById('hl-btn').style.color=hlOnly?'#F5A623':'';initExplore();}
-document.getElementById('search-input').addEventListener('input',e=>{searchQ=e.target.value;document.getElementById('x-btn').style.display=searchQ?'block':'none';clearTimeout(searchTimer);searchTimer=setTimeout(initExplore,600);});
+document.getElementById('search-input').addEventListener('input',e=>{searchQ=e.target.value;clearTimeout(searchTimer);});
 document.getElementById('search-input').addEventListener('keydown',e=>{if(e.key==='Enter'){clearTimeout(searchTimer);searchQ=e.target.value;initExplore();}});
 document.getElementById('search-input').addEventListener('search',e=>{clearTimeout(searchTimer);searchQ=e.target.value;initExplore();});
-function clearSearch(){document.getElementById('search-input').value='';searchQ='';document.getElementById('x-btn').style.display='none';initExplore();}
+function clearSearch(){document.getElementById('search-input').value='';searchQ='';initExplore();}
 const io=new IntersectionObserver(entries=>{if(entries[0].isIntersecting)loadMore();},{rootMargin:'200px'});
 io.observe(document.getElementById('sentinel'));
 
@@ -4069,7 +4231,7 @@ let viewHistory=JSON.parse(localStorage.getItem('artdaily_history')||'[]');
 
 function addToHistory(obj){
   viewHistory=viewHistory.filter(h=>h.id!==obj.objectID);
-  viewHistory.unshift({id:obj.objectID,title:obj.title,artist:obj.artistDisplayName||'',thumb:obj.primaryImageSmall||obj.primaryImage||''});
+  viewHistory.unshift({id:obj.objectID,title:obj.title,artist:obj.artistDisplayName||'',thumb:obj.primaryImageSmall||obj.primaryImage||'',source:obj.source||'met',obj:obj});
   if(viewHistory.length>20)viewHistory=viewHistory.slice(0,20);
   localStorage.setItem('artdaily_history',JSON.stringify(viewHistory));
   renderHistory();
@@ -4088,7 +4250,14 @@ function renderHistory(){
     const div=document.createElement('div');
     div.style.cssText='flex-shrink:0;width:54px;cursor:pointer;';
     div.innerHTML=`<div style="width:54px;height:54px;border-radius:8px;overflow:hidden;background:var(--bg2);border:0.5px solid var(--b1);">${h.thumb?`<img src="${h.thumb}" style="width:54px;height:54px;object-fit:cover;display:block;" alt="">`:''}</div><div style="font-size:8px;color:#666;margin-top:3px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${annotateTitle(h.title)||''}</div>`;
-    div.onclick=()=>{metFetch(`${API}/objects/${h.id}`).then(obj=>{if(obj){setNav('scr-detail',1);setTimeout(()=>selectArt(obj),50);}});};
+    div.onclick=()=>{
+      if(h.source && h.source !== 'met'){
+        // CMA/AIC/Artsmia 작품은 저장된 전체 객체로 바로 이동
+        if(h.obj){ setNav('scr-detail',1); setTimeout(()=>selectArt(h.obj),50); }
+      } else {
+        metFetch(`${API}/objects/${h.id}`).then(obj=>{if(obj){setNav('scr-detail',1);setTimeout(()=>selectArt(obj),50);}});
+      }
+    };;
     container.appendChild(div);
   });
 }
@@ -4560,7 +4729,7 @@ renderHistory();
 renderFavArtists();
 updatePickSettingBtn();
 // 초기 음악 정보 표시
-const _initTrack = CLASSICAL_TRACKS.baroque[0];
+const _initTrack = CLASSICAL_TRACKS.all[0];
 if(_initTrack){
   currentTrack=_initTrack; currentEraKey='baroque'; currentTrackIdx=0;
   GLOBAL_AUDIO.src=_initTrack.url;
