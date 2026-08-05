@@ -829,7 +829,7 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
 
 <!-- 감정 기록 바텀시트 -->
 <div class="overlay" id="emotion-record-overlay" onclick="closeEmotionRecordSheet(event)" style="display:none;">
-  <div class="ov-sheet" id="emotion-record-sheet" onclick="event.stopPropagation()" style="max-height:75vh;overflow-y:auto;margin-bottom:64px;">
+  <div class="ov-sheet" id="emotion-record-sheet" onclick="event.stopPropagation()" style="max-height:75vh;overflow-y:auto;margin-bottom:64px;padding-bottom:20px;">
     <div class="ov-handle"></div>
     <div class="ov-body">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
@@ -856,7 +856,7 @@ html,body{min-height:100%;background:var(--bg3);display:flex;justify-content:cen
       <!-- 한 줄 기록 -->
       <div style="font-size:12px;font-weight:600;color:var(--t1);margin-bottom:6px;" data-ti="oneLineLabel">한 줄 기록 <span style="font-size:11px;color:var(--t3);font-weight:400;" data-ti="optionalLabel">(선택)</span></div>
       <input id="er-note" type="text" placeholder="오늘 하루는 어땠나요?" data-ti-placeholder="emotionNote" style="width:100%;padding:10px 14px;border:0.5px solid var(--b1);border-radius:10px;font-size:13px;background:var(--bg);color:var(--t1);margin-bottom:16px;" onkeydown="if(event.key==='Enter')saveEmotionRecordNow()">
-      <button onclick="saveEmotionRecordNow()" data-ti="emotionSave" style="width:100%;padding:12px;border-radius:var(--r);background:var(--p600);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:80px;">기록하기</button>
+      <button onclick="saveEmotionRecordNow()" data-ti="emotionSave" style="width:100%;padding:12px;border-radius:var(--r);background:var(--p600);color:#fff;border:none;font-size:14px;font-weight:600;cursor:pointer;margin-bottom:100px;">기록하기</button>
     </div>
   </div>
 </div>
@@ -1317,7 +1317,7 @@ window.addEventListener('online', ()=>showToast('인터넷에 다시 연결됐�
 // 클리블랜드 미술관 API
 async function cmaFetch(params=''){
   try{
-    const url=`${CMA_API}/artworks/?has_image=1&limit=20&type=Painting${params}`;
+    const url=`/api/cma?params=${encodeURIComponent(params)}`;
     const r=await fetch(url);
     const d=await r.json();
     return d?.data||[];
@@ -1627,7 +1627,7 @@ async function loadHomeWithEmotion(q){
     document.getElementById('hero-dept').textContent = translateDeptFallback(fobj.department)||'';
     if(fobj.artistDisplayName) document.getElementById('hero-mdot1').style.display='';
     if(fobj.objectDate) document.getElementById('hero-mdot2').style.display='';
-    document.getElementById('hero-wrap').onclick = ()=>{setNav('scr-detail',1);setTimeout(()=>selectArt(fobj),50);};
+    currentArtObj=fobj; document.getElementById('hero-wrap').onclick = ()=>{setNav('scr-detail',1);setTimeout(()=>selectArt(fobj),50);};
   } catch(e){}
 }
 
@@ -1692,7 +1692,7 @@ async function loadHome(){
   if(fobj.artistDisplayName) document.getElementById('hero-mdot1').style.display='';
   if(fobj.objectDate) document.getElementById('hero-mdot2').style.display='';
   document.getElementById('home-sub').textContent='';
-  document.getElementById('hero-wrap').onclick=()=>{ setNav('scr-detail',1); setTimeout(()=>selectArt(fobj),50); };
+  currentArtObj=fobj; document.getElementById('hero-wrap').onclick=()=>{ setNav('scr-detail',1); setTimeout(()=>selectArt(fobj),50); };
 }
 
 function renderHomeArt(fobj){
@@ -1727,7 +1727,7 @@ function renderHomeArt(fobj){
   if(dot1&&fobj.artistDisplayName) dot1.style.display='';
   if(dot2&&fobj.objectDate) dot2.style.display='';
   if(subEl) subEl.textContent='';
-  document.getElementById('hero-wrap').onclick=()=>{setNav('scr-detail',1);setTimeout(()=>selectArt(fobj),50);};
+  currentArtObj=fobj; document.getElementById('hero-wrap').onclick=()=>{setNav('scr-detail',1);setTimeout(()=>selectArt(fobj),50);};
 }
 
 function makeHCard(obj){
@@ -2152,13 +2152,12 @@ function toggleColorChip(el){
 }
 
 const ERA_YEARS = {
-  ancient:   {dateBegin:-3000, dateEnd:400},
-  medieval:  {dateBegin:400,   dateEnd:1400},
-  renaissance:{dateBegin:1400, dateEnd:1600},
-  baroque:   {dateBegin:1600,  dateEnd:1800},
-  romantic:  {dateBegin:1800,  dateEnd:1900},
-  modern:    {dateBegin:1900,  dateEnd:1945},
-  contemporary:{dateBegin:1945, dateEnd:2030},
+  ancient:     {dateBegin:-3000, dateEnd:500},
+  medieval:    {dateBegin:500,   dateEnd:1400},
+  renaissance: {dateBegin:1400,  dateEnd:1600},
+  baroque:     {dateBegin:1600,  dateEnd:1800},
+  modern:      {dateBegin:1800,  dateEnd:1945},
+  contemporary:{dateBegin:1945,  dateEnd:2030},
 };
 
 let currentEmotion = '';
@@ -2528,7 +2527,7 @@ function togglePickRandom(){
   // 하위 버튼 비활성화 표시
   const opacity = pickSettings.random ? '0.35' : '1';
   const pointer = pickSettings.random ? 'none' : '';
-  ['pick-country-btn','pick-era-btn','pick-style-btn','pick-emotion-btn','pick-theme-btn','pick-color-btn'].forEach(id=>{
+  ['pick-era-btn','pick-style-btn','pick-theme-btn'].forEach(id=>{
     const el = document.getElementById(id);
     if(el){ el.style.opacity=opacity; el.style.pointerEvents=pointer; }
   });
@@ -2571,25 +2570,25 @@ async function loadHomeWithSettings(){
   let objs=[];
 
   const STYLE_ARTISTS = {
-    'renaissance':'Leonardo da Vinci Raphael Michelangelo Botticelli Titian',
-    'baroque':'Rembrandt Vermeer Rubens Caravaggio Velazquez',
-    'rococo':'Watteau Fragonard Boucher Gainsborough',
-    'neoclassicism':'David Ingres Canova',
-    'romanticism':'Delacroix Gericault Turner Friedrich',
-    'realism':'Courbet Millet Corot Daumier',
-    'naturalism':'Bastien-Lepage Millet Corot',
-    'impressionism':'Monet Renoir Degas Pissarro Sisley',
-    'post-impressionism':'Van Gogh Cezanne Gauguin Seurat',
-    'symbolism':'Moreau Redon Klimt Munch',
-    'art nouveau':'Mucha Klimt Toulouse-Lautrec',
-    'fauvism':'Matisse Derain Vlaminck',
-    'expressionism':'Munch Kirchner Kandinsky Nolde',
-    'cubism':'Picasso Braque Leger',
-    'dadaism':'Duchamp Ernst Arp',
-    'surrealism':'Dali Magritte Ernst Miro',
-    'abstract expressionism':'Pollock de Kooning Rothko Kline',
-    'pop art':'Warhol Lichtenstein Hockney Johns',
-    'minimalism':'Judd Andre Flavin',
+    'renaissance':'Leonardo da Vinci|Raphael|Michelangelo|Botticelli|Titian',
+    'baroque':'Rembrandt|Vermeer|Rubens|Caravaggio|Velazquez',
+    'rococo':'Watteau|Fragonard|Boucher|Gainsborough',
+    'neoclassicism':'David|Ingres|Canova',
+    'romanticism':'Delacroix|Gericault|Turner|Friedrich',
+    'realism':'Courbet|Millet|Corot|Daumier',
+    'naturalism':'Bastien-Lepage|Millet|Corot',
+    'impressionism':'Monet|Renoir|Degas|Pissarro|Sisley',
+    'post-impressionism':'Van Gogh|Cezanne|Gauguin|Seurat',
+    'symbolism':'Moreau|Redon|Klimt|Munch',
+    'art nouveau':'Mucha|Klimt|Toulouse-Lautrec',
+    'fauvism':'Matisse|Derain|Vlaminck',
+    'expressionism':'Munch|Kirchner|Kandinsky|Nolde',
+    'cubism':'Picasso|Braque|Leger',
+    'dadaism':'Duchamp|Ernst|Arp',
+    'surrealism':'Dali|Magritte|Ernst|Miro',
+    'abstract expressionism':'Pollock|de Kooning|Rothko|Kline',
+    'pop art':'Warhol|Lichtenstein|Hockney|Johns',
+    'minimalism':'Judd|Andre|Flavin',
   };
 
   // 감정 선택
@@ -2654,7 +2653,7 @@ async function loadHomeWithSettings(){
   // 사조 선택
   else if(pickSettings.style){
     const artistStr = STYLE_ARTISTS[pickSettings.style] || pickSettings.style;
-    const artists = artistStr.split(' ').slice(0,3);
+    const artists = artistStr.split('|').slice(0,3);
     const results = await Promise.allSettled(
       artists.map(artist=>
         metFetch(`${API}/search?q=${encodeURIComponent(artist)}&hasImages=true`).then(async d=>{
@@ -2767,7 +2766,7 @@ async function loadHomeWithSettings(){
   document.getElementById('hero-mdot2').style.display=fobj.objectDate?'':'none';
   // 오늘의 추천 작품만 변경 (그리드 제거)
   grid.innerHTML='';
-  document.getElementById('hero-wrap').onclick=()=>{setNav('scr-detail',1);setTimeout(()=>selectArt(fobj),50);};
+  currentArtObj=fobj; document.getElementById('hero-wrap').onclick=()=>{setNav('scr-detail',1);setTimeout(()=>selectArt(fobj),50);};
 }
 
 
@@ -2920,20 +2919,20 @@ function getArtworkYear(obj){
   return match ? parseInt(match[0]) : null;
 }
 const THEME_KEYWORDS = {
-  'landscape':     ['landscape painting','mountain painting','river painting','forest painting','valley painting','pastoral','meadow painting','countryside','lake painting','sunset painting'],
-  'portrait':      ['portrait painting','figure painting','self-portrait','woman portrait','man portrait','child portrait','gentleman','lady portrait','bust','face painting'],
-  'still life':    ['still life painting','fruit painting','flower vase painting','bowl painting','kitchen painting','fruit bowl','wine painting','bread painting','vegetables painting','table painting'],
-  'mythology':     ['mythology painting','Venus painting','Apollo painting','Diana painting','Hercules painting','Zeus painting','battle painting','history painting','allegory painting','Bacchus painting'],
-  'flowers':       ['flowers painting','bouquet painting','roses painting','tulips painting','garden painting','blossoms painting','lilies painting','sunflowers painting','chrysanthemums','iris painting'],
-  'sea':           ['seascape','ocean','marine','harbor','sailing ship','coastal','waves','fishing boat','lighthouse','seashore'],
-  'animal':        ['horse painting','dog painting','bird painting','lion painting','deer painting','cat painting','rabbit painting','eagle painting','owl painting','sheep painting'],
-  'religious':     ['Madonna painting','Christ painting','saint painting','angel painting','crucifixion painting','nativity painting','biblical painting','Virgin Mary','apostle painting','prayer painting'],
-  'love':          ['love painting','romance painting','couple painting','embrace painting','kiss painting','wedding painting','Venus painting','cherub painting','courtship','lovers painting'],
-  'night':         ['night painting','moonlight painting','candle painting','nocturne painting','stars painting','lantern painting','dusk painting','twilight painting','darkness painting','shadow painting'],
-  'city':          ['city painting','street painting','market painting','square painting','bridge painting','crowd painting','urban painting','buildings painting','harbor city','street scene'],
-  'chinese painting': ['Tang Yin','Shen Zhou','Dong Qichang','Gu Kaizhi','Wu Zhen','Huang Gongwang','Qi Baishi','Zhang Daqian','Xu Beihong','Wu Guanzhong','Fan Kuan','Li Cheng','Guo Xi'],
-  'japanese painting': ['Hokusai','Hiroshige','Utagawa','Sesshu','Katsushika','Utamaro','Sharaku','Harunobu','Kuniyoshi','Yoshitoshi','Jakuchu','Korin','Sotatsu'],
-  'korean painting': ['Kim Hongdo','Shin Saimdang','Jeong Seon','Kim Deuksin','Chae Yong-sin','Yi Am','Gang Hui-an','An Gyeon','Choe Buk','Kim Myeongguk','Yun Duseo','Jang Seung-eop','Kim Jeong-hui','Heo Ryeon','Yi In-mun','Byeon Sang-byeok','Lee Jung-seop','Park Soo-keun','Kim Whanki','Na Hyeseok','Lee Ungno','Chun Kyung-ja'],
+  'landscape':     ['landscape','mountain','river','forest','valley','pastoral','meadow','countryside','lake','sunset','alpine','rural','wilderness','horizon','scenery','rolling hills','coastal landscape','autumn landscape','spring landscape','snow landscape'],
+  'portrait':      ['portrait','figure','self-portrait','woman portrait','man portrait','child portrait','nobleman','aristocrat','queen','king','young woman','old man','bust portrait','family portrait','court portrait','officer portrait','merchant portrait','artist portrait','mother','daughter'],
+  'still life':    ['still life','fruit','flower vase','bowl','kitchen','wine','bread','vegetables','pitcher','glass','copper vessel','pewter','tabletop','oysters','game bird','fish','candle still life','vanitas','basket fruit','silver vessel'],
+  'mythology':     ['mythology','Venus','Apollo','Diana','Hercules','Zeus','battle','history painting','allegory','Bacchus','goddess','olympus','trojan','caesar','nymph','jupiter','minerva','mars','cupid','triumph'],
+  'flowers':       ['flowers','bouquet','roses','tulips','garden','blossoms','lilies','sunflowers','chrysanthemums','iris','poppy','dahlia','peony','wisteria','spring blossom','flower basket','wildflowers','floral arrangement','orchid','magnolia'],
+  'sea':           ['seascape','ocean','marine','harbor','sailing ship','coastal','waves','fishing boat','lighthouse','seashore','storm sea','clipper','whaling','pier','mediterranean','naval battle','fishermen','boat','sea cliff','rocky coast'],
+  'animal':        ['horse','dog','bird','lion','deer','cat','rabbit','eagle','owl','sheep','hunting scene','fox','swan','peacock','wolf','bull','cow','falcon','parrot','duck'],
+  'religious':     ['Madonna','Christ','saint','angel','crucifixion','nativity','biblical','Virgin Mary','apostle','prayer','resurrection','annunciation','baptism','saint george','pieta','adoration','holy family','last supper','pietà','ascension'],
+  'love':          ['love','romance','couple','embrace','kiss','wedding','Venus','cherub','courtship','lovers','cupid','mythology love','nymph','pastoral love','allegory love','embrace couple','dancing couple','garden party','flirtation','betrothal'],
+  'night':         ['night','moonlight','candle','nocturne','stars','lantern','dusk','twilight','darkness','shadow','campfire','torchlight','moonrise','nocturnal','candlelight','night sky','bonfire','lamp','fireplace','nocturne scene'],
+  'city':          ['city','street','market','square','architecture','bridge','crowd','urban','buildings','cafe','boulevard','promenade','tavern','paris','amsterdam','venice','plaza','cathedral','townscape','harbor city'],
+  'chinese painting':['Tang Yin','Shen Zhou','Dong Qichang','Gu Kaizhi','Wu Zhen','Huang Gongwang','Qi Baishi','Zhang Daqian','Xu Beihong','Wu Guanzhong','Fan Kuan','Li Cheng','Guo Xi','chinese landscape','chinese ink','chinese scroll','mountain mist','bamboo painting','lotus painting','chinese bird'],
+  'japanese painting':['Hokusai','Hiroshige','Utagawa','Sesshu','Katsushika','Utamaro','Sharaku','Harunobu','Kuniyoshi','Yoshitoshi','Jakuchu','Korin','Sotatsu','japanese woodblock','ukiyo-e','mount fuji','cherry blossom','samurai','geisha','japanese landscape'],
+  'korean painting':['Kim Hongdo','Shin Saimdang','Jeong Seon','Kim Deuksin','Chae Yong-sin','Yi Am','Gang Hui-an','An Gyeon','Choe Buk','Kim Myeongguk','Yun Duseo','Jang Seung-eop','Kim Jeong-hui','Heo Ryeon','Yi In-mun','Byeon Sang-byeok','Lee Jung-seop','Park Soo-keun','Kim Whanki','Korean art'],
 };
 
 async function getThemeKeywordsFromClaude(themeLabel, themeVal){
@@ -4088,7 +4087,10 @@ function makeMETCard(obj){
   const isSaved = saved.has(obj.objectID) || saved.has(String(obj.objectID));
   wrap.innerHTML=`<div class="met-img-wrap"><div class="ph"></div>${obj.isHighlight?'<div style="position:absolute;top:7px;left:7px;background:#F5A623;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;">★</div>':''}<div class="fav-btn ${isSaved?'liked':''}" onclick="event.stopPropagation();toggleFavCard(this,'${obj.objectID}')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="card-view-btn">→</div></div><div class="met-card-body"><div class="met-dept">${translateDeptFallback(obj.department)||''}</div><div class="met-title">${annotateTitle(obj.title)||'제목 없음'}</div><div class="met-artist">${annotateArtist(obj.artistDisplayName)||translateCountryFallback(obj.culture)||''}</div><div class="met-date">${obj.objectDate||''}</div></div>`;
   if(src){const iw=wrap.querySelector('.met-img-wrap');const img=new Image();img.style.cssText='width:100%;height:140px;object-fit:cover;display:block;';img.src=src;img.onload=()=>{const ph=iw.querySelector('.ph');if(ph)ph.remove();iw.insertBefore(img,iw.firstChild);};img.onerror=()=>{wrap.style.display='none';};}
-  wrap.addEventListener('click',()=>openOv(obj.objectID, obj));
+  wrap.addEventListener('click',()=>{
+    setNav('scr-detail',1);
+    setTimeout(()=>selectArt(obj),50);
+  });
   return wrap;
 }
 
