@@ -1,0 +1,25 @@
+{
+  "name": "ART DAILY — 오늘의 명작 이야기",
+  "short_name": "ART DAILY",
+  "description": "MET 박물관 47만 점 명화를 매일 감상하세요",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#121212",
+  "theme_color": "#534AB7",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
